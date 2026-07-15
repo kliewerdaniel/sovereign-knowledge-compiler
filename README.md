@@ -100,6 +100,41 @@ skc query --output memory/ --since 2024-01-01 --until 2024-02-01
 ## Status
 
 Reference skeleton: extract → consolidate → index → persist → query is fully
-working and tested (`pytest tests/`, 13 passing). Roadmap items from the post
-still open: CRDT-based compiled-graph sync (Automerge/Yjs), decay/compaction
-policy, and the provenance-tagged conflict-resolution layer.
+working and tested (`pytest tests/`, 28 passing). The **CRDT sync layer**
+(`sovereign_knowledge_compiler.sync`) is implemented and tested: multi-device
+memory converges under arbitrary exchange order with no server, and concurrent
+edits of the same entity resolve last-writer-wins with provenance. Roadmap
+items still open: decay/compaction policy, and the provenance-tagged
+conflict-resolution *review* surface, and the local-LLM "deep synthesis"
+compile step.
+
+## Multi-device sync (no cloud)
+
+Compiled memory is replicated across the user's own devices with a state-based
+CRDT (OR-Set over facts + version vectors). Every merge is commutative,
+associative, and idempotent, so two devices can exchange state in any order,
+any number of times, and always converge. Concurrent edits to the same entity
+(resolved by `entity_id`) collapse to one value via last-writer-wins, and the
+winning record is kept for inspection — never silently dropped.
+
+```python
+from sovereign_knowledge_compiler.sync import MemorySync
+
+laptop = MemorySync("laptop")
+phone = MemorySync("phone")
+
+laptop.put({"content": "use postgres", "tags": ["db"]})
+phone.put({"content": "use sqlite for mobile", "tags": ["db"]})
+
+# exchange once, in either direction
+laptop = laptop.merge(phone)
+phone = phone.merge(laptop)
+assert laptop.converged_with(phone)  # True, no server involved
+
+# persist each replica to disk
+laptop.save("laptop.sync.json")
+```
+
+Run `pytest tests/test_sync.py -v` to see the CRDT-law tests (commutativity,
+associativity, idempotence, convergence under out-of-order exchange, LWW, and
+delete propagation) — these are the guarantees that make server-less sync safe.

@@ -1,4 +1,4 @@
-"""CLI entry point: compile and query compiled memory from the terminal."""
+"""CLI entry point: compile, query, and sync compiled memory from the terminal."""
 
 from __future__ import annotations
 
@@ -10,6 +10,7 @@ from pathlib import Path
 from .compiler.frontend import compile_material
 from .privacy.guard import guard as privacy_guard
 from .runtime.api import MemoryRuntime
+from .sync import MemorySync, sync_from_file
 
 
 def _cmd_compile(args) -> int:
@@ -37,6 +38,21 @@ def _cmd_query(args) -> int:
     return 0
 
 
+def _cmd_sync(args) -> int:
+    """Exchange two replica files so both converge (server-less sync)."""
+    a = sync_from_file(args.file_a, "a")
+    b = sync_from_file(args.file_b, "b")
+    a2 = a.merge(b)
+    b2 = b.merge(a)
+    if args.out_a:
+        a2.save(args.out_a)
+    if args.out_b:
+        b2.save(args.out_b)
+    print(f"converged: {a2.converged_with(b2)}")
+    print(f"live facts after sync: {len(a2.live_facts())}")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="skc", description="Sovereign Knowledge Compiler")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -55,6 +71,13 @@ def main(argv=None) -> int:
     q.add_argument("--since", default="")
     q.add_argument("--until", default="")
     q.set_defaults(func=_cmd_query)
+
+    s = sub.add_parser("sync", help="Exchange two replica files so both converge")
+    s.add_argument("--file-a", required=True, help="Path to replica A sync state")
+    s.add_argument("--file-b", required=True, help="Path to replica B sync state")
+    s.add_argument("--out-a", default="", help="Where to write merged replica A")
+    s.add_argument("--out-b", default="", help="Where to write merged replica B")
+    s.set_defaults(func=_cmd_sync)
 
     args = ap.parse_args(argv)
     return args.func(args)
