@@ -18,9 +18,16 @@ def _cmd_compile(args) -> int:
     material = json.loads(Path(args.material).read_text(encoding="utf-8"))
     if args.redact:
         material = privacy_guard(material)
+    client = None
+    if args.deep:
+        from .compiler.synthesizer import LocalLLMClient
+        client = LocalLLMClient(model=args.model, endpoint=args.endpoint, api=args.api)
+        if not client.available():
+            print(f"[deep] local model at {args.endpoint} unreachable; "
+                  f"falling back to deterministic extraction", file=sys.stderr)
     manifest = compile_material(
         material, args.output, version=args.version,
-        source_label=args.material,
+        source_label=args.material, deep=args.deep, client=client,
     )
     print(json.dumps(manifest, indent=2, ensure_ascii=False))
     return 0
@@ -133,6 +140,10 @@ def main(argv=None) -> int:
     c.add_argument("--output", required=True, help="Output directory for versioned bundles")
     c.add_argument("--version", default="v1")
     c.add_argument("--redact", action="store_true", help="Run the Privacy Guard first")
+    c.add_argument("--deep", action="store_true", help="Add a local-LLM deep-synthesis pass")
+    c.add_argument("--model", default="llama3.1", help="Local model name for --deep")
+    c.add_argument("--endpoint", default="http://localhost:11434", help="Local model endpoint")
+    c.add_argument("--api", default="ollama", choices=["ollama", "openai"], help="Local API flavor")
     c.set_defaults(func=_cmd_compile)
 
     q = sub.add_parser("query", help="Query compiled memory")

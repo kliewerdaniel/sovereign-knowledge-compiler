@@ -100,11 +100,12 @@ skc query --output memory/ --since 2024-01-01 --until 2024-02-01
 ## Status
 
 Reference skeleton: extract → consolidate → index → persist → query is fully
-working and tested (`pytest tests/`, 43 passing). The **CRDT sync layer**
+working and tested (`pytest tests/`, 56 passing). The **CRDT sync layer**
 (`sovereign_knowledge_compiler.sync`) is implemented and tested: Remove-Wins
-Set + Lamport-ordered LWW + a human-overridable conflict ledger + **reversible
-decay/compaction**. The one remaining open roadmap item is the local-LLM
-"deep synthesis" compile step.
+Set + Lamport-ordered LWW + a human-overridable conflict ledger + reversible
+decay/compaction. The **local-LLM deep-synthesis pass**
+(`sovereign_knowledge_compiler.compiler.synthesizer`) is implemented and tested
+against a real local model — all roadmap items are now landed.
 
 ## Multi-device sync (no cloud)
 
@@ -176,3 +177,30 @@ sync.purge(eid)                       # permanently delete (irreversible)
 CLI: `skc decay --file A.sync.json` (dry-run candidates) / `--apply`;
 `skc revive --file A.sync.json --entity <id>`; `skc purge ...`. Run
 `pytest tests/test_compaction.py -v` for the decay/revive/convergence tests.
+
+## Deep synthesis (optional local-LLM pass)
+
+The deterministic extractor is the cheap, always-on default (one fact per
+sentence, keyword-tagged). The **deep-synthesis pass** adds a *local* model on
+top to do what heuristics can't: merge related sentences into one insight,
+surface implicit decisions, and name the rationale behind a choice.
+
+* **Local only.** Talks to Ollama (`/api/generate`) or any OpenAI-compatible
+  endpoint (`/v1/chat/completions`) on localhost. Never a cloud API.
+* **Gracefully degrading.** If no local model is reachable (offline, CI), it
+  falls back to the deterministic facts unchanged — it never fabricates.
+* **Additive + de-duplicated.** Synthesised facts are merged on top of the
+  deterministic ones and de-duped by content, so deep synthesis only adds
+  signal. Synthesised facts are tagged `source=<type>:synth`, `confidence=0.9`.
+
+```python
+from sovereign_knowledge_compiler.compiler.synthesizer import LocalLLMClient
+from sovereign_knowledge_compiler.compiler.frontend import compile_material
+client = LocalLLMClient(model="llama3.1", endpoint="http://localhost:11434")
+compile_material(material, "out/", deep=True, client=client)
+```
+
+CLI: `skc compile --material notes.json --output out/ --deep --model llama3.1`
+(add `--endpoint` / `--api openai` for other local servers). If the model is
+unreachable the command logs a note to stderr and compiles deterministically.
+Run `pytest tests/test_synthesizer.py -v` for the offline (mock-client) tests.
