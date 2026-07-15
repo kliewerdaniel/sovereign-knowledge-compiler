@@ -100,7 +100,7 @@ skc query --output memory/ --since 2024-01-01 --until 2024-02-01
 ## Status
 
 Reference skeleton: extract → consolidate → index → persist → query is fully
-working and tested (`pytest tests/`, 56 passing). The **CRDT sync layer**
+working and tested (`pytest tests/`, 62 passing). The **CRDT sync layer**
 (`sovereign_knowledge_compiler.sync`) is implemented and tested: Remove-Wins
 Set + Lamport-ordered LWW + a human-overridable conflict ledger + reversible
 decay/compaction. The **local-LLM deep-synthesis pass**
@@ -204,3 +204,20 @@ CLI: `skc compile --material notes.json --output out/ --deep --model llama3.1`
 (add `--endpoint` / `--api openai` for other local servers). If the model is
 unreachable the command logs a note to stderr and compiles deterministically.
 Run `pytest tests/test_synthesizer.py -v` for the offline (mock-client) tests.
+
+## The synthesis → decay loop
+
+The two newest layers close into a feedback loop. When the deep-synthesis pass
+reasons over the corpus, the base facts it actually *draws on* are detected
+(token-overlap citation) and **reinforced** in the sync store — raising their
+resistance to decay. Facts the compiler keeps using stay alive; facts nothing
+references fade. Usage, not age alone, drives what memory keeps.
+
+```python
+deep_synthesize(material, base_facts, client=client, reinforce_sync=memory)
+# every cited base fact -> memory.reinforce(entity) -> higher decay resistance
+```
+
+Reinforcement is best-effort and never changes the returned facts or the
+graceful-degradation behaviour. Run `pytest tests/test_synthesis_decay_loop.py`
+for the citation-detection and "cited fact survives compaction" tests.

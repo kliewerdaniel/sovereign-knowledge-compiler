@@ -216,6 +216,7 @@ def deep_synthesize(
     client: Optional[LLMClient] = None,
     *,
     max_chars: int = 6000,
+    reinforce_sync=None,
 ) -> List[Fact]:
     """Augment ``base_facts`` with a local-LLM synthesis pass.
 
@@ -223,6 +224,13 @@ def deep_synthesize(
     None or unavailable, the base facts are returned unchanged (graceful
     degradation -- no fabrication). Otherwise the model's synthesised facts are
     merged in and de-duplicated by normalised content.
+
+    If ``reinforce_sync`` (a ``MemorySync``) is provided, every base fact the
+    model actually drew on during synthesis is *reinforced* in that store,
+    raising its resistance to decay. This closes the loop between the two
+    newest layers: the compiler's reasoning becomes a usage signal for
+    compaction. Reinforcement is best-effort and never affects the returned
+    facts.
     """
     if client is None:
         return base_facts
@@ -246,11 +254,82 @@ def deep_synthesize(
         items = _extract_json_array(raw)
         synth.extend(_to_facts(items, item.get("date"), item.get("type", "material")))
 
+    if reinforce_sync is not None and synth:
+        _reinforce_cited(reinforce_sync, base_facts, synth)
+
     return _merge_dedup(base_facts, synth)
+
+
+def _reinforce_cited(sync, base_facts: List[Fact], synth: List[Fact]) -> int:
+    """Reinforce the MemorySync entities whose value matches a cited base fact.
+
+    Returns the number of entities reinforced. Best-effort: an entity is matched
+    by normalised content between the base fact and the store's provenance
+    values. Never raises.
+    """
+    try:
+        cited_idx = cited_base_facts(base_facts, synth)
+    except Exception:
+        return 0
+    if not cited_idx:
+        return 0
+    # map normalised content -> entity_id in the sync store
+    content_to_eid = {}
+    for eid, rec in getattr(sync, "provenance", {}).items():
+        val = rec.get("value")
+        text = val.get("content") if isinstance(val, dict) else val
+        if isinstance(text, str):
+            content_to_eid[_norm(text)] = eid
+    reinforced = 0
+    for i in cited_idx:
+        key = _norm(base_facts[i].content)
+        eid = content_to_eid.get(key)
+        if eid is not None:
+            sync.reinforce(eid)
+            reinforced += 1
+    return reinforced
 
 
 def _norm(content: str) -> str:
     return re.sub(r"\s+", " ", content.strip().lower())
+
+
+_STOP = {
+    "the", "a", "an", "and", "or", "but", "for", "to", "of", "in", "on", "at",
+    "is", "are", "was", "were", "be", "we", "our", "it", "its", "as", "with",
+    "that", "this", "will", "has", "have", "had", "chose", "use", "using",
+}
+
+
+def _tokens(content: str) -> set:
+    words = re.findall(r"[a-z0-9]+", content.lower())
+    return {w for w in words if w not in _STOP and len(w) > 2}
+
+
+def cited_base_facts(
+    base: List[Fact], synth: List[Fact], threshold: float = 0.34
+) -> List[int]:
+    """Return indices into ``base`` of facts the synthesised facts drew on.
+
+    A base fact is considered *cited* if any synthesised fact shares enough
+    content tokens with it (overlap = shared / base_tokens). This is the usage
+    signal that feeds decay resistance: facts the compiler actually reasoned
+    over are more valuable and should decay more slowly.
+    """
+    synth_token_sets = [_tokens(f.content) for f in synth]
+    cited: List[int] = []
+    for i, bf in enumerate(base):
+        bt = _tokens(bf.content)
+        if not bt:
+            continue
+        for st in synth_token_sets:
+            if not st:
+                continue
+            overlap = len(bt & st) / len(bt)
+            if overlap >= threshold:
+                cited.append(i)
+                break
+    return cited
 
 
 def _merge_dedup(base: List[Fact], synth: List[Fact]) -> List[Fact]:
