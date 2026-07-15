@@ -2,13 +2,12 @@
 
 Local-first memory that lives on one machine is fragile. Sovereign memory is
 replicated across the user's devices -- laptop, phone, server -- without a
-central server. This module provides the replication primitive: a state-based
-CRDT (OR-Set over content-addressed facts + version vectors) plus a
-last-writer-wins register with provenance for the rare case of conflicting
-edits. All operations are commutative, associative, and idempotent, so two
-devices can exchange state in any order, any number of times, and always
-converge to the same memory.
+central server. This module provides the replication primitive: a Remove-Wins
+Set CRDT over content-addressed facts, a Lamport clock for causal LWW ordering,
+and a conflict ledger so edit conflicts are inspectable and overridable.
 """
 
-from .crdt import ORSet, VersionVector  # noqa: F401
-from .memory_sync import MemorySync, sync_to_file, sync_from_file  # noqa: F401
+from .crdt import FactSet, VersionVector, LamportClock  # noqa: F401
+from .memory_sync import (  # noqa: F401
+    MemorySync, sync_to_file, sync_from_file,
+)

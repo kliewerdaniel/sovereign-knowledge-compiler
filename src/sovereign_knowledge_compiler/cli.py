@@ -50,6 +50,30 @@ def _cmd_sync(args) -> int:
         b2.save(args.out_b)
     print(f"converged: {a2.converged_with(b2)}")
     print(f"live facts after sync: {len(a2.live_facts())}")
+    pending = a2.pending_conflicts()
+    if pending:
+        print(f"pending conflicts: {len(pending)} entity(ies) awaiting review")
+    return 0
+
+
+def _cmd_conflicts(args) -> int:
+    """List or resolve LWW conflicts in a replica file."""
+    s = sync_from_file(args.file, "reviewer")
+    if args.resolve_entity and args.resolve_value is not None:
+        s.resolve(args.resolve_entity, json.loads(args.resolve_value))
+        s.save(args.file)
+        print(f"resolved {args.resolve_entity} -> {args.resolve_value}")
+        return 0
+    pending = s.pending_conflicts()
+    if not pending:
+        print("no pending conflicts")
+        return 0
+    for eid, losers in pending.items():
+        winner = s.provenance.get(eid, {}).get("value")
+        print(f"\nentity: {eid}")
+        print(f"  winner : {winner}")
+        for i, l in enumerate(losers):
+            print(f"  loser[{i}]: {l['value']}  (writer={l['writer']}, lamport={l['lamport']})")
     return 0
 
 
@@ -78,6 +102,12 @@ def main(argv=None) -> int:
     s.add_argument("--out-a", default="", help="Where to write merged replica A")
     s.add_argument("--out-b", default="", help="Where to write merged replica B")
     s.set_defaults(func=_cmd_sync)
+
+    cf = sub.add_parser("conflicts", help="List or resolve LWW conflicts in a replica")
+    cf.add_argument("--file", required=True, help="Path to a replica sync state")
+    cf.add_argument("--resolve-entity", default="", help="Entity id to override")
+    cf.add_argument("--resolve-value", default=None, help="JSON value to pin for that entity")
+    cf.set_defaults(func=_cmd_conflicts)
 
     args = ap.parse_args(argv)
     return args.func(args)

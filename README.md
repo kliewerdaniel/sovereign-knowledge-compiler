@@ -100,41 +100,51 @@ skc query --output memory/ --since 2024-01-01 --until 2024-02-01
 ## Status
 
 Reference skeleton: extract → consolidate → index → persist → query is fully
-working and tested (`pytest tests/`, 28 passing). The **CRDT sync layer**
-(`sovereign_knowledge_compiler.sync`) is implemented and tested: multi-device
-memory converges under arbitrary exchange order with no server, and concurrent
-edits of the same entity resolve last-writer-wins with provenance. Roadmap
-items still open: decay/compaction policy, and the provenance-tagged
-conflict-resolution *review* surface, and the local-LLM "deep synthesis"
-compile step.
+working and tested (`pytest tests/`, 34 passing). The **CRDT sync layer**
+(`sovereign_knowledge_compiler.sync`) is implemented and tested: Remove-Wins
+Set + Lamport-ordered LWW + a human-overridable conflict ledger. Roadmap items
+still open: decay/compaction policy, and the local-LLM "deep synthesis" compile
+step.
 
 ## Multi-device sync (no cloud)
 
-Compiled memory is replicated across the user's own devices with a state-based
-CRDT (OR-Set over facts + version vectors). Every merge is commutative,
-associative, and idempotent, so two devices can exchange state in any order,
-any number of times, and always converge. Concurrent edits to the same entity
-(resolved by `entity_id`) collapse to one value via last-writer-wins, and the
-winning record is kept for inspection — never silently dropped.
+Compiled memory is replicated across the user's own devices with a
+state-based CRDT. Every merge is commutative, associative, and idempotent, so
+two devices can exchange state in any order, any number of times, and always
+converge. Deletion uses **Remove-Wins** semantics (a delete tombstones a fact's
+content hash, so it disappears from every replica after merge -- the correct
+behaviour for "this fact no longer exists, anywhere").
+
+Concurrent edits to the same entity (grouped by `entity_id`) resolve
+**last-writer-wins by a Lamport clock**, not wall-clock time -- so a device
+with a lagging system clock does not silently lose a later edit. The loser is
+**kept in a conflict ledger**, so every auto-resolution is inspectable and
+**overridable by a human** (the conflict-resolution surface the blog post
+calls for). This is the human-in-the-loop guarantee made concrete.
 
 ```python
 from sovereign_knowledge_compiler.sync import MemorySync
 
 laptop = MemorySync("laptop")
 phone = MemorySync("phone")
-
 laptop.put({"content": "use postgres", "tags": ["db"]})
 phone.put({"content": "use sqlite for mobile", "tags": ["db"]})
 
 # exchange once, in either direction
 laptop = laptop.merge(phone)
 phone = phone.merge(laptop)
-assert laptop.converged_with(phone)  # True, no server involved
+assert laptop.converged_with(phone)   # True, no server involved
 
-# persist each replica to disk
-laptop.save("laptop.sync.json")
+# concurrent edits of the same entity resolve LWW by Lamport time
+laptop.put({"content": "pool: 5"},  lamport=100, writer="laptop", entity_id="pool")
+phone.put({"content": "pool: 20"}, lamport=200, writer="phone",  entity_id="pool")
+merged = laptop.merge(phone)
+assert merged.pending_conflicts()      # the losing value is recorded, not dropped
+merged.resolve("pool", {"content": "pool: 5"})   # human override
+assert merged.pending_conflicts() == {}         # conflict cleared
 ```
 
-Run `pytest tests/test_sync.py -v` to see the CRDT-law tests (commutativity,
-associativity, idempotence, convergence under out-of-order exchange, LWW, and
-delete propagation) — these are the guarantees that make server-less sync safe.
+CLI: `skc sync --file-a A.sync.json --file-b B.sync.json` converges two
+replicas; `skc conflicts --file A.sync.json` lists pending resolutions and
+`--resolve-entity/--resolve-value` applies a human override. Run
+`pytest tests/test_sync.py -v` to see the CRDT-law and conflict-review tests.
