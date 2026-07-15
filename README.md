@@ -10,8 +10,8 @@ cloud.
 
 This is the reference implementation called for by the blog post
 [*The Sovereign Knowledge Compiler: Compile-Time Memory for Local-First AI
-Agents*](https://www.danielkliewer.com/blog/2026-07-15-sovereign-knowledge-compiler-compile-time-memory).
-It compounds on [`knowledge-compiler-sdk`](../knowledge-compiler-sdk): every
+Agents*](https://www.danielkliewer.com/blog/2026-07-15-sovereign-memory-bank-deepening-local-first-cognitive-memory).
+It compounds on [`knowledge-compiler-sdk`](https://github.com/kliewerdaniel/sovereign-knowledge-compiler): every
 compiled memory batch is persisted as an immutable, content-hashed artifact via
 the SDK's `ArtifactStore`.
 
