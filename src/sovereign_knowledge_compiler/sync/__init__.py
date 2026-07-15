@@ -11,3 +11,4 @@ from .crdt import FactSet, VersionVector, LamportClock  # noqa: F401
 from .memory_sync import (  # noqa: F401
     MemorySync, sync_to_file, sync_from_file,
 )
+from .compaction import CompactionPolicy, archive_key  # noqa: F401

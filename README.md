@@ -100,11 +100,11 @@ skc query --output memory/ --since 2024-01-01 --until 2024-02-01
 ## Status
 
 Reference skeleton: extract → consolidate → index → persist → query is fully
-working and tested (`pytest tests/`, 34 passing). The **CRDT sync layer**
+working and tested (`pytest tests/`, 43 passing). The **CRDT sync layer**
 (`sovereign_knowledge_compiler.sync`) is implemented and tested: Remove-Wins
-Set + Lamport-ordered LWW + a human-overridable conflict ledger. Roadmap items
-still open: decay/compaction policy, and the local-LLM "deep synthesis" compile
-step.
+Set + Lamport-ordered LWW + a human-overridable conflict ledger + **reversible
+decay/compaction**. The one remaining open roadmap item is the local-LLM
+"deep synthesis" compile step.
 
 ## Multi-device sync (no cloud)
 
@@ -148,3 +148,31 @@ CLI: `skc sync --file-a A.sync.json --file-b B.sync.json` converges two
 replicas; `skc conflicts --file A.sync.json` lists pending resolutions and
 `--resolve-entity/--resolve-value` applies a human override. Run
 `pytest tests/test_sync.py -v` to see the CRDT-law and conflict-review tests.
+
+## Decay & compaction (reversible)
+
+Compiled memory is not append-only forever. Old, unused facts fade so the
+runtime stays sharp -- but sovereign memory never *silently* drops anything.
+Decay is a **reversible overlay**, not destructive mutation:
+
+* `CompactionPolicy` scores each fact's *relevance* from age, recency of use,
+  and reinforcement count (how often it has been cited/queried). Facts below a
+  threshold become compaction candidates.
+* `compact()` moves candidates into an **archive register** (an LWW toggle per
+  entity, keyed by Lamport clock) so two devices that compact or revive
+  independently still converge. Archived facts leave `live_facts()` but stay
+  fully present in the CRDT and the archive -- `revive()` brings them back, and
+  `purge()` is the only irreversible step (and only works on archived facts).
+* Reinforced or `protected_tags` facts never decay.
+
+```python
+from sovereign_knowledge_compiler.sync import CompactionPolicy
+policy = CompactionPolicy()           # 90-day half-life by default
+eids = sync.compact(policy, now=...)  # archive aged/unused facts
+sync.revive(eid)                      # restore one
+sync.purge(eid)                       # permanently delete (irreversible)
+```
+
+CLI: `skc decay --file A.sync.json` (dry-run candidates) / `--apply`;
+`skc revive --file A.sync.json --entity <id>`; `skc purge ...`. Run
+`pytest tests/test_compaction.py -v` for the decay/revive/convergence tests.

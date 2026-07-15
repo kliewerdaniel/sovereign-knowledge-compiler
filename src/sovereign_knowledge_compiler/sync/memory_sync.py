@@ -21,10 +21,13 @@ replica-id tiebreak decides and the conflict is recorded for human review.
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 
 from .crdt import FactSet, VersionVector, LamportClock, content_hash
+import time
+from .compaction import CompactionPolicy
 
 
 class MemorySync:
@@ -39,16 +42,34 @@ class MemorySync:
         self.clock = LamportClock(replica_id)
         # entity_id -> list of losing records (for human review / override)
         self.conflicts: Dict[str, List[Dict[str, Any]]] = {}
+        # Per-entity archive state as an LWW register so compaction AND revive
+        # converge: {entity_id: {"archived": bool, "lamport": int, "writer": str}}.
+        # Merge takes the higher (lamport, writer) per entity, so a revive on one
+        # device and a compact on another resolve deterministically.
+        self.archive: Dict[str, Dict[str, Any]] = {}
+
+    def reinforce(self, entity_id: str, by: int = 1, now: Optional[float] = None) -> None:
+        """Record a usage signal for a fact, raising its resistance to decay."""
+        rec = self.provenance.get(entity_id)
+        if rec is None:
+            return
+        rec["reinforcements"] = rec.get("reinforcements", 0) + by
+        rec["last_touch"] = now if now is not None else time.time()
+
 
     # -- local write --------------------------------------------------------
     def put(self, value: Any, lamport: Optional[int] = None,
-            writer: Optional[str] = None, entity_id: Optional[str] = None) -> str:
+            writer: Optional[str] = None, entity_id: Optional[str] = None,
+            now: Optional[float] = None, reinforcement: int = 0) -> str:
         """Add (or replace) a fact locally.
 
         ``lamport`` is a logical timestamp (defaults to a fresh Lamport tick).
         ``entity_id`` groups logically-related edits so concurrent edits of the
         same entity resolve LWW instead of duplicating. Defaults to the fact's
-        content hash (so different facts never collide).
+        content hash (so different facts never collide). ``now`` is wall-clock
+        seconds (defaults to time.time()); used only for *decay* scoring, never
+        for LWW. ``reinforcement`` seeds a usage count (e.g. how many times this
+        fact has been cited/queried) so frequently-used memory resists decay.
         """
         writer = writer or self.replica_id
         if lamport is None:
@@ -56,6 +77,7 @@ class MemorySync:
         else:
             self.clock.observe(lamport)
         eid = entity_id or content_hash(value)
+        now = now if now is not None else time.time()
 
         prior = self.provenance.get(eid)
         if prior is not None:
@@ -66,9 +88,18 @@ class MemorySync:
 
         self.facts.add(value)
         if prior is None or (lamport, writer) >= (prior["lamport"], prior["writer"]):
+            # On a brand-new put, initialise decay bookkeeping. On a non-winning
+            # put (out-ranked by prior), keep the prior record but still advance
+            # its reinforcement if this is a re-emit of the same value.
+            rec = self.provenance.get(eid, {})
+            prev_created = rec.get("created", now)
+            prev_reinf = rec.get("reinforcements", 0)
             self.provenance[eid] = {
                 "writer": writer, "lamport": lamport,
                 "value": value, "entity_id": eid,
+                "created": prev_created,
+                "last_touch": now,
+                "reinforcements": prev_reinf + reinforcement,
             }
         self.vv.increment()
         return eid
@@ -85,6 +116,15 @@ class MemorySync:
         merged.facts = self.facts.merge(other.facts)
         merged.vv = self.vv.merge(other.vv)
         merged.clock = self.clock.merge(other.clock)
+        # archive is an LWW register per entity: take the higher (lamport, writer)
+        merged.archive = {}
+        for eid in set(self.archive) | set(other.archive):
+            a = self.archive.get(eid)
+            b = other.archive.get(eid)
+            if b is None or (a is not None and (a["lamport"], a["writer"]) >= (b["lamport"], b["writer"])):
+                merged.archive[eid] = a  # type: ignore[assignment]
+            else:
+                merged.archive[eid] = b  # type: ignore[assignment]
 
         # reconcile provenance: union, LWW per entity_id by (lamport, writer)
         prov = dict(self.provenance)
@@ -165,14 +205,87 @@ class MemorySync:
         }
         self.conflicts.pop(entity_id, None)
 
-    # -- observation --------------------------------------------------------
-    def live_facts(self) -> List[Any]:
-        """Live facts ordered by provenance Lamport time (most recent last)."""
+    # -- decay / compaction (reversible overlay) -----------------------------
+    def _set_archive(self, entity_id: str, archived: bool) -> None:
+        """Write an LWW archive toggle for an entity at the current clock."""
+        lamport = self.clock.tick()
+        self.archive[entity_id] = {
+            "archived": archived, "lamport": lamport, "writer": self.replica_id,
+        }
+
+    def _is_archived(self, entity_id: str) -> bool:
+        return bool(self.archive.get(entity_id, {}).get("archived", False))
+
+    def compact(self, policy: CompactionPolicy, now: Optional[float] = None) -> List[str]:
+        """Archive facts that score below the policy threshold.
+
+        Returns the list of entity_ids archived in this call. Archived facts
+        leave ``live_facts()`` but remain in the CRDT and the archive register,
+        so they can be revived. The archive is an LWW register per entity and
+        merges symmetrically during sync, so compaction + revive both converge.
+        """
+        now = now if now is not None else time.time()
+        cands = policy.candidates(self.provenance, now, self.facts.values())
+        archived = []
+        for eid in cands:
+            if self._is_archived(eid):
+                continue
+            self._set_archive(eid, True)
+            archived.append(eid)
+        return archived
+
+    def revive(self, entity_id: str) -> bool:
+        """Bring an archived (compacted) fact back into live memory. Convergent
+        LWW toggle: a later revive on any device wins over an earlier compact."""
+        rec = self.provenance.get(entity_id)
+        if rec is None or not self._is_archived(entity_id):
+            return False
+        self._set_archive(entity_id, False)
+        # touching resets decay signals so it doesn't immediately re-compact
+        rec["last_touch"] = time.time()
+        rec["reinforcements"] = rec.get("reinforcements", 0) + 1
+        return True
+
+    def purge(self, entity_id: str) -> bool:
+        """Permanently delete an archived fact (from CRDT + provenance + archive).
+        Use sparingly -- this is the only irreversible step. Returns True if a
+        fact was actually removed."""
+        rec = self.provenance.get(entity_id)
+        if rec is None or not self._is_archived(entity_id):
+            return False
+        self.archive.pop(entity_id, None)
+        self.facts.remove_value(rec["value"])
+        del self.provenance[entity_id]
+        self.conflicts.pop(entity_id, None)
+        return True
+
+    def archived_facts(self) -> List[Any]:
+        """Return the archived (compacted-but-not-purged) values."""
+        value_by_eid = {rec["entity_id"]: rec["value"] for rec in self.provenance.values()}
+        out = []
+        for eid, rec in self.archive.items():
+            if rec.get("archived") and eid in value_by_eid:
+                out.append(value_by_eid[eid])
+        return out
+
+    def live_facts(self, include_archived: bool = False) -> List[Any]:
+        """Live facts ordered by provenance Lamport time (most recent last).
+
+        By default excludes archived facts. Pass ``include_archived=True`` to
+        see everything still present in the CRDT.
+        """
         prov_by_value = {
             content_hash(r["value"]): r for r in self.provenance.values()
         }
+        out = []
+        for v in self.facts.values():
+            if not include_archived:
+                eid = prov_by_value.get(content_hash(v), {}).get("entity_id")
+                if eid is not None and self._is_archived(eid):
+                    continue
+            out.append(v)
         return sorted(
-            self.facts.values(),
+            out,
             key=lambda v: prov_by_value.get(content_hash(v), {}).get("lamport", 0),
         )
 
@@ -180,6 +293,7 @@ class MemorySync:
         return (
             self.facts.value_set() == other.facts.value_set()
             and self.vv == other.vv
+            and self.archive == other.archive
         )
 
     # -- serialisation ------------------------------------------------------
@@ -191,6 +305,7 @@ class MemorySync:
             "vv": self.vv.export(),
             "clock": self.clock.export(),
             "conflicts": self.conflicts,
+            "archive": self.archive,
         }
 
     @classmethod
@@ -201,6 +316,7 @@ class MemorySync:
         s.vv = VersionVector.import_state(state["vv"])
         s.clock = LamportClock.import_state(state["replica_id"], state.get("clock", 0))
         s.conflicts = state.get("conflicts", {})
+        s.archive = {k: dict(v) for k, v in state.get("archive", {}).items()}
         return s
 
     def save(self, path: str) -> None:
