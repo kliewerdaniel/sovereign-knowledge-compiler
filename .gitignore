@@ -25,3 +25,4 @@ memory/
 .vscode/
 .idea/
 .DS_Store
+blog_compile_out/
