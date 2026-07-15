@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.so
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Test / coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Compiled memory output (runtime artifacts, not source)
+memory/
+*.build/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

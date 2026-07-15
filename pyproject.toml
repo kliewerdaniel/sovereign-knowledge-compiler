@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sovereign-knowledge-compiler"
+version = "0.1.0"
+description = "Compile-time memory for local-first AI agents: compile raw experience once into static, inspectable, versioned artifacts."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+sdk = ["knowledge-compiler-sdk"]
+
+[project.scripts]
+skc = "sovereign_knowledge_compiler.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
