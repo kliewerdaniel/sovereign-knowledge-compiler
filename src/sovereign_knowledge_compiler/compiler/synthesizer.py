@@ -294,6 +294,70 @@ def _norm(content: str) -> str:
     return re.sub(r"\s+", " ", content.strip().lower())
 
 
+def concept_recurrence(sync) -> Dict[str, int]:
+    """Corpus-wide concept signal: for each entity in the store, how many
+    *distinct source posts* share at least one of its tags.
+
+    This is the cross-post generalisation of ``cited_base_facts``: instead of
+    only rewarding verbatim reuse within one post, it rewards a *concept* that
+    the corpus keeps returning to in different words. A fact tagged ``ollama``
+    that appears (by tag) across 30 posts is far more load-bearing than a
+    sentence copied into two posts.
+
+    Returns ``{entity_id: recurrence_count}`` where recurrence is the number of
+    distinct sources (post slugs) that carry any of the entity's tags, minus 1
+    (its own), floored at 0. Requires provenance ``value`` dicts to carry
+    ``tags`` and a ``slug``/``source`` for the originating post.
+    """
+    prov = getattr(sync, "provenance", {})
+
+    def _slug(val, rec):
+        if isinstance(val, dict) and val.get("slug"):
+            return val["slug"]
+        return rec.get("source") or rec.get("writer")
+
+    # tag -> set of distinct source slugs that carry it
+    tag_sources: Dict[str, set] = {}
+    for eid, rec in prov.items():
+        val = rec.get("value")
+        tags = val.get("tags", []) if isinstance(val, dict) else []
+        slug = _slug(val, rec)
+        for t in tags:
+            tag_sources.setdefault(t, set()).add(slug)
+
+    out: Dict[str, int] = {}
+    for eid, rec in prov.items():
+        val = rec.get("value")
+        tags = val.get("tags", []) if isinstance(val, dict) else []
+        slug = _slug(val, rec)
+        sources: set = set()
+        for t in tags:
+            sources |= tag_sources.get(t, set())
+        sources.discard(slug)
+        out[eid] = len(sources)
+    return out
+
+
+def reinforce_by_concept(sync, scale: int = 1, max_bonus: int = 50) -> int:
+    """Reinforce every entity by its corpus-wide concept recurrence.
+
+    Applies ``concept_recurrence`` and calls ``sync.reinforce`` so facts whose
+    concepts recur across many posts gain decay resistance proportional to that
+    recurrence (capped by ``max_bonus``). Returns the number of entities that
+    received a bonus. This is the cross-post reinforcement that makes decay
+    track "what the corpus keeps returning to", not just duplicated sentences.
+    """
+    rec_map = concept_recurrence(sync)
+    touched = 0
+    for eid, recurrence in rec_map.items():
+        if recurrence <= 0:
+            continue
+        bonus = min(recurrence * scale, max_bonus)
+        sync.reinforce(eid, by=bonus)
+        touched += 1
+    return touched
+
+
 _STOP = {
     "the", "a", "an", "and", "or", "but", "for", "to", "of", "in", "on", "at",
     "is", "are", "was", "were", "be", "we", "our", "it", "its", "as", "with",
