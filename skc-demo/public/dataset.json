@@ -1,0 +1,1928 @@
+{
+  "meta": {
+    "generated_from": "153 blog posts compiled by Sovereign Knowledge Compiler",
+    "model": "llama3.1:8b",
+    "local_only": true,
+    "compile_seconds": 2185
+  },
+  "stats": {
+    "posts": 153,
+    "total_facts": 1513,
+    "decisions": 436,
+    "synth_facts": 1360,
+    "decisions_with_rationale": 245,
+    "reinforced_facts": 2613,
+    "max_concept_recurrence": 148,
+    "unique_tags": 1663
+  },
+  "themes": [
+    {
+      "theme": "other",
+      "count": 179,
+      "decisions": [
+        {
+          "content": "Implement ways for users to provide feedback on the AI-generated analyses.",
+          "rationale": "",
+          "tags": [
+            "people"
+          ],
+          "date": "2024-10-04"
+        },
+        {
+          "content": "Create a virtual environment using Python's venv module",
+          "rationale": "Best practice to manage dependencies",
+          "tags": [
+            "python",
+            "venv",
+            "rationale"
+          ],
+          "date": "2024-10-09"
+        },
+        {
+          "content": "Install Ruby using Homebrew or a package manager",
+          "rationale": "Required for Jekyll",
+          "tags": [
+            "ruby",
+            "homebrew",
+            "rationale"
+          ],
+          "date": "2024-10-09"
+        },
+        {
+          "content": "It's best practice to use a virtual environment for your project to manage dependencies.",
+          "rationale": "",
+          "tags": [],
+          "date": "2024-10-09"
+        },
+        {
+          "content": "We will clone the repository to start the integration process.",
+          "rationale": "",
+          "tags": [
+            "repository",
+            "integration"
+          ],
+          "date": "2024-10-22"
+        },
+        {
+          "content": "To install GhostWriter, clone the repository using Git, create a virtual environment, install backend dependencies, and set up the project.",
+          "rationale": "The installation steps are provided to guide users through setting up GhostWriter.",
+          "tags": [
+            "ghostwriter",
+            "installation",
+            "rationale"
+          ],
+          "date": "2024-10-24"
+        },
+        {
+          "content": "The decision tree should question reality before making a choice.",
+          "rationale": "",
+          "tags": [
+            "decision tree",
+            "reality"
+          ],
+          "date": "2024-10-30"
+        },
+        {
+          "content": "The very wealthy never had to learn to use a computer like other people who worked for a living.",
+          "rationale": "",
+          "tags": [],
+          "date": "2024-11-04"
+        },
+        {
+          "content": "This creates both the input and output necessary for an artificial neural network (ANN) to use frameworks like Transformers or PyTorch to analyze video, similar to how convolutional neural networks (CNNs) were developed for static images.",
+          "rationale": "",
+          "tags": [],
+          "date": "2024-11-04"
+        },
+        {
+          "content": "Choose a business structure for your company.",
+          "rationale": "To establish the legal foundation of the company.",
+          "tags": [
+            "business structure",
+            "rationale"
+          ],
+          "date": "2024-11-22"
+        },
+        {
+          "content": "Register your business to obtain necessary licenses and permits.",
+          "rationale": "To comply with legal requirements for operating a business.",
+          "tags": [
+            "register business",
+            "licenses",
+            "rationale"
+          ],
+          "date": "2024-11-22"
+        },
+        {
+          "content": "Set up business accounts and insurance to manage finances and mitigate risks.",
+          "rationale": "To ensure financial stability and protect the company's assets.",
+          "tags": [
+            "business accounts",
+            "insurance",
+            "rationale"
+          ],
+          "date": "2024-11-22"
+        }
+      ]
+    },
+    {
+      "theme": "local-first & sovereignty",
+      "count": 81,
+      "decisions": [
+        {
+          "content": "Use Ollama to interact with Large Language Models (LLMs)",
+          "rationale": "Interface for LLMs",
+          "tags": [
+            "ollama",
+            "llm",
+            "rationale"
+          ],
+          "date": "2024-10-09"
+        },
+        {
+          "content": "We will integrate Django-React-Ollama with XAi API.",
+          "rationale": "The union of intellect and machine, of flesh and code.",
+          "tags": [
+            "integration",
+            "xai-api",
+            "rationale"
+          ],
+          "date": "2024-10-22"
+        },
+        {
+          "content": "The project will use local storage or cloud storage solutions such as AWS S3 to store fetched data and generated content.",
+          "rationale": "To store fetched data and generated content.",
+          "tags": [
+            "storage",
+            "aws s3",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "The project will use Markdown for formatting blog posts.",
+          "rationale": "",
+          "tags": [
+            "tools and technologies",
+            "markdown"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "Offline RL learns from a fixed dataset of past experiences instead of interacting with the world.",
+          "rationale": "choice of method",
+          "tags": [
+            "offline rl",
+            "past experiences",
+            "rationale"
+          ],
+          "date": "2024-12-10"
+        },
+        {
+          "content": "Model-Based RL beyond Control: Scaling model-based RL from low-level control tasks to broader domains like long-term planning in enterprise-level decision-making systems, where data is plentiful offline but real-time deployment is risky.",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2024-12-10"
+        },
+        {
+          "content": "To implement the application with Ollama, install the necessary Python libraries, including langchain, networkx, and markdown.",
+          "rationale": "Required for building the application.",
+          "tags": [
+            "implementation",
+            "libraries",
+            "rationale"
+          ],
+          "date": "2024-12-19"
+        },
+        {
+          "content": "Install Ollama using the installation instructions for your operating system.",
+          "rationale": "Needed to run language models locally.",
+          "tags": [
+            "ollama",
+            "installation",
+            "rationale"
+          ],
+          "date": "2024-12-19"
+        },
+        {
+          "content": "Download a model for Ollama, such as llama2 or any compatible model.",
+          "rationale": "Required for the application to function.",
+          "tags": [
+            "models",
+            "download",
+            "rationale"
+          ],
+          "date": "2024-12-19"
+        },
+        {
+          "content": "Participants will use the Open Deep Research framework to build open-source tools for locally run large language models (LLMs).",
+          "rationale": "",
+          "tags": [
+            "open-deep-research",
+            "llm-tools"
+          ],
+          "date": "2025-02-05"
+        },
+        {
+          "content": "Ollama must be installed before proceeding.",
+          "rationale": "The guide requires Ollama to be installed for the setup process.",
+          "tags": [
+            "ollama",
+            "installation",
+            "rationale"
+          ],
+          "date": "2025-02-05"
+        },
+        {
+          "content": "The `CodeAgent` is configured to use Mistral 24B via Ollama and re-plan actions every 3 steps.",
+          "rationale": "The guide configures the `CodeAgent` with specific settings for optimal performance.",
+          "tags": [
+            "code-agent",
+            "mistral",
+            "rationale"
+          ],
+          "date": "2025-02-05"
+        }
+      ]
+    },
+    {
+      "theme": "models & inference",
+      "count": 50,
+      "decisions": [
+        {
+          "content": "A Persona model must be defined in the core app.",
+          "rationale": "For storing persona data",
+          "tags": [
+            "persona",
+            "model",
+            "rationale"
+          ],
+          "date": "2024-10-12"
+        },
+        {
+          "content": "Serializers for the Persona model must also be created.",
+          "rationale": "For API serialization",
+          "tags": [
+            "serializers",
+            "persona",
+            "rationale"
+          ],
+          "date": "2024-10-12"
+        },
+        {
+          "content": "You could also use the biometric data, such as heartrate of the staff of the hospital as annotations or ids or incidnets for the model.",
+          "rationale": "",
+          "tags": [],
+          "date": "2024-11-04"
+        },
+        {
+          "content": "Establish pricing model to balance revenue goals with customer affordability and market competitiveness.",
+          "rationale": "To set a fair price for the product or service.",
+          "tags": [
+            "pricing model",
+            "revenue strategy",
+            "rationale"
+          ],
+          "date": "2024-11-22"
+        },
+        {
+          "content": "Python 3.8+ is the required programming language for this project.",
+          "rationale": "To build this multi-model AI agent, you'll need to utilize several tools and libraries.",
+          "tags": [
+            "python",
+            "programming language",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "An OpenAI API Key is required to use the script.",
+          "rationale": "The script uses OpenAI's GPT models and requires an API key.",
+          "tags": [
+            "openai api key",
+            "requirements",
+            "rationale"
+          ],
+          "date": "2024-12-02"
+        },
+        {
+          "content": "By refactoring the model to store each characteristic as a dedicated field, we enhance database normalization, facilitate easier data manipulation, and improve the frontend experience by allowing users to edit characteristics directly.",
+          "rationale": "Improves database normalization, facilitates easier data manipulation, and improves the frontend experience.",
+          "tags": [
+            "django",
+            "persona",
+            "model",
+            "rationale"
+          ],
+          "date": "2024-12-05"
+        },
+        {
+          "content": "Combining RL’s sequential decision-making with the representational power of large pre-trained models could yield more efficient agents and facilitate zero-shot generalization or creative problem-solving.",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2024-12-10"
+        },
+        {
+          "content": "RL, on the other hand, fine-tunes decision-making and long-term planning.",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2024-12-10"
+        },
+        {
+          "content": "Use `Qwen/Qwen2.5-Coder-32B-Instruct` as the default model",
+          "rationale": "The guide specifies Qwen/Qwen2.5-Coder-32B-Instruct as the default model.",
+          "tags": [
+            "model options",
+            "default model",
+            "rationale"
+          ],
+          "date": "2025-02-05"
+        },
+        {
+          "content": "To train the model, run `cargo run` after modifying `main()` to include training logic.",
+          "rationale": "The guide's purpose is to demonstrate how to use the Burn framework.",
+          "tags": [
+            "cargo",
+            "training",
+            "rationale"
+          ],
+          "date": "2025-03-11"
+        },
+        {
+          "content": "To load and run inference with the saved model, modify `main()` to call `load_model(\"trained_model.burn\")`.",
+          "rationale": "The guide's purpose is to demonstrate how to use the Burn framework.",
+          "tags": [
+            "cargo",
+            "inference",
+            "rationale",
+            "saving"
+          ],
+          "date": "2025-03-11"
+        }
+      ]
+    },
+    {
+      "theme": "architecture & compiler",
+      "count": 47,
+      "decisions": [
+        {
+          "content": "The Instagram Graph API and OpenAI API are required for fetching user posts and image-to-text conversion.",
+          "rationale": "To fetch user posts and perform image-to-text conversion.",
+          "tags": [
+            "instagram graph api",
+            "openai api",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "The system will use a graph structure to organize agents with specialized nodes for retrieval, generation, and decision-making.",
+          "rationale": "",
+          "tags": [
+            "graph-based orchestration",
+            "graph orchestration layer"
+          ],
+          "date": "2024-12-11"
+        },
+        {
+          "content": "By integrating RL, RAG, persona modeling, and graph-based orchestration, we can design a system capable of adaptive decision-making, personalized interaction, and knowledge synthesis.",
+          "rationale": "",
+          "tags": [
+            "architecture",
+            "process"
+          ],
+          "date": "2024-12-11"
+        },
+        {
+          "content": "With this architecture, we have a solid blueprint for a system that blends RL-driven decision-making, retrieval-augmented generation, persona-based customization, and orchestrated collaboration among specialized agents.",
+          "rationale": "",
+          "tags": [
+            "architecture",
+            "process"
+          ],
+          "date": "2024-12-11"
+        },
+        {
+          "content": "Build the Python module using maturin develop after installing maturin with pip install maturin.",
+          "rationale": "To compile the Rust code into a Python-compatible shared library.",
+          "tags": [
+            "maturin",
+            "build",
+            "rationale"
+          ],
+          "date": "2025-03-11"
+        },
+        {
+          "content": "We will raise an error if the file format is not supported.",
+          "rationale": "To ensure robustness of the pipeline",
+          "tags": [
+            "file formats",
+            "error handling",
+            "rationale"
+          ],
+          "date": "2025-03-22"
+        },
+        {
+          "content": "These agent-based systems represent a fundamental evolution in how we architect intelligent applications, enabling autonomous decision-making and task execution at unprecedented scale.",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2025-03-25"
+        },
+        {
+          "content": "Objective: Implement Next.js frontend for graph exploration.",
+          "rationale": "",
+          "tags": [
+            "architecture"
+          ],
+          "date": "2025-10-19"
+        },
+        {
+          "content": "Document-driven development was used as the signature vibe coding technique, where every architectural decision gets documented first.",
+          "rationale": "",
+          "tags": [
+            "documentdriven",
+            "vibecoding"
+          ],
+          "date": "2025-11-02"
+        },
+        {
+          "content": "I'm building it using **document-driven development** - my signature vibe coding technique where every architectural decision gets documented first, creating a living blueprint that guides the AI agents.",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2025-11-02"
+        },
+        {
+          "content": "A: Start small—use AI for boilerplate while you handle architecture.",
+          "rationale": "",
+          "tags": [
+            "architecture"
+          ],
+          "date": "2025-11-03"
+        },
+        {
+          "content": "The author will show how to build a system that actually solves the problem, not a hack or workaround.",
+          "rationale": "To provide a properly architected workflow that treats the PDF like the complex knowledge graph it actually is.",
+          "tags": [
+            "solution",
+            "system",
+            "rationale"
+          ],
+          "date": "2025-11-05"
+        }
+      ]
+    },
+    {
+      "theme": "agents & orchestration",
+      "count": 39,
+      "decisions": [
+        {
+          "content": "Personal Knowledge Management (PKM) refers to the methods and tools individuals use to collect, organize, store, retrieve, and share information for personal and professional development.",
+          "rationale": "",
+          "tags": [],
+          "date": "2024-10-04"
+        },
+        {
+          "content": "Decision trees can be used to teach an agent to question and decide.",
+          "rationale": "",
+          "tags": [
+            "decision tree",
+            "ai"
+          ],
+          "date": "2024-10-30"
+        },
+        {
+          "content": "The best agent is one that thinks best as itself, not like a human.",
+          "rationale": "This is the author's opinion on what makes an AI Agent truly valuable.",
+          "tags": [
+            "best agent",
+            "human intelligence",
+            "rationale"
+          ],
+          "date": "2024-10-30"
+        },
+        {
+          "content": "Give your agent wisdom and purpose, not just power and intelligence.",
+          "rationale": "This is the author's advice on how to create a truly effective AI Agent.",
+          "tags": [
+            "wisdom",
+            "purpose",
+            "power",
+            "intelligence",
+            "rationale"
+          ],
+          "date": "2024-10-30"
+        },
+        {
+          "content": "Let your agent be a teacher, showing new ways to see and understand.",
+          "rationale": "This is the author's vision for the role of AI Agents in human society.",
+          "tags": [
+            "teacher",
+            "understanding",
+            "rationale"
+          ],
+          "date": "2024-10-30"
+        },
+        {
+          "content": "The project will use scheduling tools such as schedule or APScheduler for automating the agent's execution.",
+          "rationale": "To automate the agent's execution.",
+          "tags": [
+            "scheduling",
+            "schedule",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "Create separate modules for each agent in OpenAI Swarm.",
+          "rationale": "Improves organization and maintainability",
+          "tags": [
+            "swarm agents",
+            "modules",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "Define Persona Generation, Response Generation, Validation and Formatting, and Exporting agents in OpenAI Swarm.",
+          "rationale": "Improves functionality",
+          "tags": [
+            "persona generation",
+            "response generation",
+            "validation",
+            "exporting",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "We will integrate concepts from PersonaGen07 repository, RAG example from Pydantic AI, and Agent and Tools APIs into a cohesive system.",
+          "rationale": "To create a working setup that allows defining personas, retrieving relevant documents, and producing AI-generated responses customized to each persona’s style and preferences.",
+          "tags": [
+            "integration",
+            "system-design",
+            "rationale"
+          ],
+          "date": "2024-12-09"
+        },
+        {
+          "content": "The system will combine strategic decision-making, powerful data retrieval, dynamic adaptability, and personalized interaction.",
+          "rationale": "",
+          "tags": [
+            "ai",
+            "machine learning"
+          ],
+          "date": "2024-12-11"
+        },
+        {
+          "content": "By synthesizing ideas from these fields, we can create a program that combines strategic decision-making, powerful data retrieval, dynamic adaptability, and personalized interaction.",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2024-12-11"
+        },
+        {
+          "content": "Nodes representing specialized agents (retrieval, generation, decision-making).",
+          "rationale": "",
+          "tags": [
+            "process"
+          ],
+          "date": "2024-12-11"
+        }
+      ]
+    },
+    {
+      "theme": "web & deployment",
+      "count": 38,
+      "decisions": [
+        {
+          "content": "The application will bridge Django and React.",
+          "rationale": "",
+          "tags": [
+            "django",
+            "react"
+          ],
+          "date": "2024-10-12"
+        },
+        {
+          "content": "Django REST Framework is required for the backend.",
+          "rationale": "For building the API",
+          "tags": [
+            "django",
+            "restframework",
+            "rationale"
+          ],
+          "date": "2024-10-12"
+        },
+        {
+          "content": "The backend will use Django as its foundation.",
+          "rationale": "",
+          "tags": [
+            "django",
+            "backend"
+          ],
+          "date": "2024-10-12"
+        },
+        {
+          "content": "We chose Django for backend development",
+          "rationale": "Django is a popular and widely-used framework for building robust backends.",
+          "tags": [
+            "django",
+            "backend-development",
+            "rationale"
+          ],
+          "date": "2024-10-18"
+        },
+        {
+          "content": "We chose React for frontend development",
+          "rationale": "React is a popular and widely-used library for building user interfaces.",
+          "tags": [
+            "react",
+            "frontend-development",
+            "rationale"
+          ],
+          "date": "2024-10-18"
+        },
+        {
+          "content": "We will use the XAi API documentation as a guide for integration.",
+          "rationale": "",
+          "tags": [
+            "api-documentation",
+            "guidance"
+          ],
+          "date": "2024-10-22"
+        },
+        {
+          "content": "We will generate the XAi API key in the XAi Console and store it securely in our .env file.",
+          "rationale": "",
+          "tags": [
+            "xai-api-key",
+            "security"
+          ],
+          "date": "2024-10-22"
+        },
+        {
+          "content": "We will purge old references to OpenAI from our files and focus on the new path with XAi API.",
+          "rationale": "",
+          "tags": [
+            "openai",
+            "purge"
+          ],
+          "date": "2024-10-22"
+        },
+        {
+          "content": "Explore funding options, such as venture capital, angel investors, or crowdfunding, to secure necessary resources.",
+          "rationale": "To access the required funds for business growth.",
+          "tags": [
+            "funding options",
+            "venture capital",
+            "rationale"
+          ],
+          "date": "2024-11-22"
+        },
+        {
+          "content": "Sign up for an OpenAI account and obtain your API key",
+          "rationale": "necessary for GPT-4 and DALL·E usage",
+          "tags": [
+            "step 2",
+            "openai api key setup",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "Obtain social media API credentials for each platform",
+          "rationale": "required for posting content on respective platforms",
+          "tags": [
+            "step 2",
+            "api credential setup",
+            "rationale"
+          ],
+          "date": "2024-11-27"
+        },
+        {
+          "content": "Add your OpenAI API Key to the `.env` file using `OPENAI_API_KEY=your_openai_api_key_here` format.",
+          "rationale": "To enable authentication with the OpenAI API.",
+          "tags": [
+            "step-3",
+            ".env",
+            "rationale"
+          ],
+          "date": "2024-11-28"
+        }
+      ]
+    },
+    {
+      "theme": "data & annotation",
+      "count": 2,
+      "decisions": [
+        {
+          "content": "RLHF-Lab seeks $2 million in seed funding.",
+          "rationale": "To support the development and launch of the RLHF-Lab platform.",
+          "tags": [
+            "funding-requirements",
+            "rationale"
+          ],
+          "date": "2024-11-23"
+        },
+        {
+          "content": "A Reddit account with API access configured is necessary to use the script.",
+          "rationale": "The script relies on Reddit's API for data export",
+          "tags": [
+            "reddit",
+            "api",
+            "access",
+            "rationale"
+          ],
+          "date": "2025-10-21"
+        }
+      ]
+    }
+  ],
+  "top_tags": [
+    {
+      "tag": "ai",
+      "count": 141
+    },
+    {
+      "tag": "process",
+      "count": 73
+    },
+    {
+      "tag": "architecture",
+      "count": 38
+    },
+    {
+      "tag": "ollama",
+      "count": 36
+    },
+    {
+      "tag": "prerequisites",
+      "count": 23
+    },
+    {
+      "tag": "python",
+      "count": 21
+    },
+    {
+      "tag": "technology",
+      "count": 20
+    },
+    {
+      "tag": "upwork",
+      "count": 20
+    },
+    {
+      "tag": "installation",
+      "count": 17
+    },
+    {
+      "tag": "openai",
+      "count": 15
+    },
+    {
+      "tag": "persona",
+      "count": 14
+    },
+    {
+      "tag": "django",
+      "count": 12
+    },
+    {
+      "tag": "model",
+      "count": 12
+    },
+    {
+      "tag": "llm",
+      "count": 11
+    },
+    {
+      "tag": "rag",
+      "count": 11
+    },
+    {
+      "tag": "nextjs",
+      "count": 11
+    },
+    {
+      "tag": "models",
+      "count": 10
+    },
+    {
+      "tag": "memory",
+      "count": 10
+    },
+    {
+      "tag": "agents",
+      "count": 10
+    },
+    {
+      "tag": "api",
+      "count": 10
+    },
+    {
+      "tag": "reddiss",
+      "count": 10
+    },
+    {
+      "tag": "inference",
+      "count": 10
+    },
+    {
+      "tag": "ace-step",
+      "count": 10
+    },
+    {
+      "tag": "synthetic intelligence",
+      "count": 10
+    },
+    {
+      "tag": "ghostwriter",
+      "count": 9
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "ai",
+        "count": 141,
+        "theme": "models & inference"
+      },
+      {
+        "id": "process",
+        "count": 73,
+        "theme": "other"
+      },
+      {
+        "id": "architecture",
+        "count": 38,
+        "theme": "architecture & compiler"
+      },
+      {
+        "id": "ollama",
+        "count": 36,
+        "theme": "local-first & sovereignty"
+      },
+      {
+        "id": "prerequisites",
+        "count": 23,
+        "theme": "other"
+      },
+      {
+        "id": "python",
+        "count": 21,
+        "theme": "other"
+      },
+      {
+        "id": "technology",
+        "count": 20,
+        "theme": "other"
+      },
+      {
+        "id": "upwork",
+        "count": 20,
+        "theme": "other"
+      },
+      {
+        "id": "installation",
+        "count": 17,
+        "theme": "other"
+      },
+      {
+        "id": "openai",
+        "count": 15,
+        "theme": "web & deployment"
+      },
+      {
+        "id": "persona",
+        "count": 14,
+        "theme": "models & inference"
+      },
+      {
+        "id": "django",
+        "count": 12,
+        "theme": "web & deployment"
+      },
+      {
+        "id": "model",
+        "count": 12,
+        "theme": "models & inference"
+      },
+      {
+        "id": "llm",
+        "count": 11,
+        "theme": "local-first & sovereignty"
+      },
+      {
+        "id": "rag",
+        "count": 11,
+        "theme": "models & inference"
+      },
+      {
+        "id": "nextjs",
+        "count": 11,
+        "theme": "web & deployment"
+      },
+      {
+        "id": "models",
+        "count": 10,
+        "theme": "models & inference"
+      },
+      {
+        "id": "memory",
+        "count": 10,
+        "theme": "agents & orchestration"
+      },
+      {
+        "id": "agents",
+        "count": 10,
+        "theme": "agents & orchestration"
+      },
+      {
+        "id": "api",
+        "count": 10,
+        "theme": "data & annotation"
+      },
+      {
+        "id": "reddiss",
+        "count": 10,
+        "theme": "other"
+      },
+      {
+        "id": "inference",
+        "count": 10,
+        "theme": "models & inference"
+      },
+      {
+        "id": "ace-step",
+        "count": 10,
+        "theme": "models & inference"
+      },
+      {
+        "id": "synthetic intelligence",
+        "count": 10,
+        "theme": "other"
+      },
+      {
+        "id": "ghostwriter",
+        "count": 9,
+        "theme": "other"
+      },
+      {
+        "id": "agent",
+        "count": 9,
+        "theme": "agents & orchestration"
+      },
+      {
+        "id": "step 1",
+        "count": 9,
+        "theme": "other"
+      },
+      {
+        "id": "reddit",
+        "count": 9,
+        "theme": "data & annotation"
+      },
+      {
+        "id": "vibecoding",
+        "count": 9,
+        "theme": "other"
+      },
+      {
+        "id": "daniel kliewer",
+        "count": 9,
+        "theme": "other"
+      },
+      {
+        "id": "llms",
+        "count": 8,
+        "theme": "models & inference"
+      },
+      {
+        "id": "git",
+        "count": 8,
+        "theme": "other"
+      },
+      {
+        "id": "dependencies",
+        "count": 8,
+        "theme": "other"
+      },
+      {
+        "id": "performance",
+        "count": 8,
+        "theme": "other"
+      },
+      {
+        "id": "mcp",
+        "count": 8,
+        "theme": "models & inference"
+      },
+      {
+        "id": "local-first",
+        "count": 8,
+        "theme": "local-first & sovereignty"
+      },
+      {
+        "id": "autoresearch",
+        "count": 8,
+        "theme": "models & inference"
+      },
+      {
+        "id": "nodejs",
+        "count": 7,
+        "theme": "web & deployment"
+      },
+      {
+        "id": "security",
+        "count": 7,
+        "theme": "web & deployment"
+      },
+      {
+        "id": "intelligence",
+        "count": 7,
+        "theme": "agents & orchestration"
+      }
+    ],
+    "edges": [
+      {
+        "source": "architecture",
+        "target": "process",
+        "weight": 12
+      },
+      {
+        "source": "django",
+        "target": "persona",
+        "weight": 6
+      },
+      {
+        "source": "ai",
+        "target": "ollama",
+        "weight": 6
+      },
+      {
+        "source": "model",
+        "target": "persona",
+        "weight": 5
+      },
+      {
+        "source": "agent",
+        "target": "ai",
+        "weight": 5
+      },
+      {
+        "source": "installation",
+        "target": "ollama",
+        "weight": 5
+      },
+      {
+        "source": "agents",
+        "target": "ai",
+        "weight": 5
+      },
+      {
+        "source": "prerequisites",
+        "target": "python",
+        "weight": 4
+      },
+      {
+        "source": "ai",
+        "target": "models",
+        "weight": 4
+      },
+      {
+        "source": "django",
+        "target": "model",
+        "weight": 4
+      },
+      {
+        "source": "ai",
+        "target": "autoresearch",
+        "weight": 4
+      },
+      {
+        "source": "reddiss",
+        "target": "reddit",
+        "weight": 3
+      },
+      {
+        "source": "ollama",
+        "target": "openai",
+        "weight": 3
+      },
+      {
+        "source": "ai",
+        "target": "inference",
+        "weight": 3
+      },
+      {
+        "source": "process",
+        "target": "technology",
+        "weight": 3
+      },
+      {
+        "source": "llm",
+        "target": "ollama",
+        "weight": 2
+      },
+      {
+        "source": "git",
+        "target": "prerequisites",
+        "weight": 2
+      },
+      {
+        "source": "nodejs",
+        "target": "python",
+        "weight": 2
+      },
+      {
+        "source": "api",
+        "target": "reddit",
+        "weight": 2
+      },
+      {
+        "source": "ai",
+        "target": "architecture",
+        "weight": 2
+      },
+      {
+        "source": "ai",
+        "target": "reddiss",
+        "weight": 2
+      },
+      {
+        "source": "api",
+        "target": "openai",
+        "weight": 2
+      },
+      {
+        "source": "models",
+        "target": "ollama",
+        "weight": 2
+      },
+      {
+        "source": "ace-step",
+        "target": "performance",
+        "weight": 2
+      },
+      {
+        "source": "ai",
+        "target": "memory",
+        "weight": 2
+      },
+      {
+        "source": "local-first",
+        "target": "synthetic intelligence",
+        "weight": 2
+      },
+      {
+        "source": "api",
+        "target": "ollama",
+        "weight": 2
+      },
+      {
+        "source": "django",
+        "target": "python",
+        "weight": 1
+      },
+      {
+        "source": "models",
+        "target": "persona",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "ghostwriter",
+        "weight": 1
+      },
+      {
+        "source": "ghostwriter",
+        "target": "prerequisites",
+        "weight": 1
+      },
+      {
+        "source": "ghostwriter",
+        "target": "installation",
+        "weight": 1
+      },
+      {
+        "source": "dependencies",
+        "target": "python",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "technology",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "reddit",
+        "weight": 1
+      },
+      {
+        "source": "architecture",
+        "target": "reddiss",
+        "weight": 1
+      },
+      {
+        "source": "installation",
+        "target": "reddiss",
+        "weight": 1
+      },
+      {
+        "source": "nodejs",
+        "target": "prerequisites",
+        "weight": 1
+      },
+      {
+        "source": "ollama",
+        "target": "prerequisites",
+        "weight": 1
+      },
+      {
+        "source": "git",
+        "target": "installation",
+        "weight": 1
+      },
+      {
+        "source": "installation",
+        "target": "python",
+        "weight": 1
+      },
+      {
+        "source": "installation",
+        "target": "nodejs",
+        "weight": 1
+      },
+      {
+        "source": "nextjs",
+        "target": "ollama",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "nextjs",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "openai",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "llm",
+        "weight": 1
+      },
+      {
+        "source": "python",
+        "target": "reddit",
+        "weight": 1
+      },
+      {
+        "source": "architecture",
+        "target": "technology",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "daniel kliewer",
+        "weight": 1
+      },
+      {
+        "source": "daniel kliewer",
+        "target": "ollama",
+        "weight": 1
+      },
+      {
+        "source": "mcp",
+        "target": "models",
+        "weight": 1
+      },
+      {
+        "source": "inference",
+        "target": "ollama",
+        "weight": 1
+      },
+      {
+        "source": "nextjs",
+        "target": "security",
+        "weight": 1
+      },
+      {
+        "source": "ace-step",
+        "target": "architecture",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "vibecoding",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "llms",
+        "weight": 1
+      },
+      {
+        "source": "local-first",
+        "target": "ollama",
+        "weight": 1
+      },
+      {
+        "source": "ai",
+        "target": "model",
+        "weight": 1
+      },
+      {
+        "source": "memory",
+        "target": "model",
+        "weight": 1
+      },
+      {
+        "source": "llms",
+        "target": "ollama",
+        "weight": 1
+      },
+      {
+        "source": "api",
+        "target": "llms",
+        "weight": 1
+      },
+      {
+        "source": "api",
+        "target": "models",
+        "weight": 1
+      },
+      {
+        "source": "llms",
+        "target": "performance",
+        "weight": 1
+      },
+      {
+        "source": "intelligence",
+        "target": "model",
+        "weight": 1
+      }
+    ]
+  },
+  "top_reinforced": [
+    {
+      "content": "Deploy as a web service with Flask, allowing users to input reviews and get sentiment predictions.",
+      "reinforcements": 50,
+      "concept_recurrence": 148,
+      "slug": "2025-11-10-top-ai-algortihms",
+      "tags": [
+        "technology",
+        "architecture",
+        "process",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Set up a React application that integrates a toxicity-detection ML model and visualizes user input as a weighted graph of words.",
+      "reinforcements": 51,
+      "concept_recurrence": 146,
+      "slug": "2024-12-14-learning-from-the-past",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The theoretical core of this integration lies in developing a client architecture that exhibits polymorphic behavior—presenting an OpenAI-compatible interface while redirecting cognitive operations to Ollama's local inference engines.",
+      "reinforcements": 51,
+      "concept_recurrence": 146,
+      "slug": "2025-03-12-mcp-openai-agents-sdk-ollama",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The primary objective is straightforward: enable your web application to send tabular data to a locally hosted LLM, receive structured summaries or analytical insights, and return results to your users—without ever transmitting sensitive data to external cloud services.",
+      "reinforcements": 51,
+      "concept_recurrence": 146,
+      "slug": "2025-11-08-local-llm-integration",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The proposed user interface designs for the MCP system provide a balance between simplicity and power, enabling users to leverage the hybrid OpenAI-Ollama architecture effectively.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-03-12-integrating-openai-agents-sdk-ollama",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Rate limiting is an essential mechanism for controlling how frequently users or services can access an API or resource.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-03-28-scalable-ai-backends",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "By storing the number of requests made by a user (or service) in a Redis key, you can easily track usage and apply rate limits in real time.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-03-28-scalable-ai-backends",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "3️⃣ **AI Layer (LLM + RAG)** generates a new, non-repetitive lesson tailored to the user’s needs.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-03-30-learning-platform",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The **backend** acts as the core API layer, handling **user authentication, lesson generation requests, and knowledge graph interactions**.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-03-30-learning-platform",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "6️⃣ **User interacts with the lesson**, and their responses update **PostgreSQL + Knowledge Graph**, ensuring **future lessons adapt dynamically**.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-03-30-learning-platform",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The user has provided a comprehensive master prompt for building Mind Map AI, a local LLM-powered personal knowledge graph system.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2025-10-19-building-a-local-llm-powered-knowledge-graph",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "It bridges the gap between raw inference (Ollama) and user experience (Web UI), serving as the architectural spine for my more complex systems like the GraphRAG Research Assistant.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2026-01-12-autonomous-ai-agents-developer-portfolio",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "None of these systems have a mature answer for merging two independently compiled knowledge graphs or wikis from different teams — Kompile's fuzzy-dedup graph merge and llm-wiki-compiler's page-level merge-on-shared-slug are early, partial answers.",
+      "reinforcements": 50,
+      "concept_recurrence": 146,
+      "slug": "2026-07-12-compile-time-ai-knowledge-compiler-architecture",
+      "tags": [
+        "technology",
+        "architecture",
+        "people"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The application leverages a graph structure to manage and orchestrate interactions with a Language Model (LLM) using LangChain and Ollama.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2024-12-19-langchain-ollama",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The implementation of a sophisticated hybrid AI architecture integrating OpenAI's Agents SDK with Ollama necessitates a carefully curated technological stack.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-12-integrating-openai-agents-sdk-ollama",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The integration of Ollama with OpenAI's Agent SDK represents a significant advancement in hybrid AI architectures.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-12-integrating-openai-agents-sdk-ollama",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "In this project, we use ChromaDB to create a vector-based knowledge graph that links various learning topics and content pieces.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-29-markdown-teaching-assistant",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "ChromaDB is used to create a knowledge graph from the parsed content, enabling the AI to query and interact with it.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-29-markdown-teaching-assistant",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The system dynamically adjusts content using **a knowledge graph and a local LLM**, ensuring learners receive increasingly relevant and challenging material based on their progress.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-30-building-a-personalized-ai-learning-system-with-local-llm",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Instead of presenting repetitive material, the system dynamically adjusts the content using **a knowledge graph and a local LLM**, ensuring that learners receive progressively more relevant and challenging material.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-30-learning-platform",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Built with **Next.js and React**, this layer ensures a smooth and responsive experience while enabling real-time interaction with the backend and AI layer.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-03-30-learning-platform",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Discover how to build yours here: Building Agentic Knowledge Graphs with Local LLMs.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-07-06-beyond-prompts",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "•\tSync frontend with backend API.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-10-19-building-a-local-llm-powered-knowledge-graph",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The system uses NetworkX for graph storage and a local LLM for extraction.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-10-19-building-a-local-llm-powered-knowledge-graph",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The United States will remain a key player, leveraging its advantages in capital, technology, and energy.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2025-11-14-2025-inference-new-geography-intelligence",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Our system addresses these challenges through a sophisticated architecture that separates **Intelligence** (the LLM) from **Identity** (the Persona Lens).",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2026-01-25-dynamic-persona-moe-rag-building-a-sovereign-synthetic-intelligence-system",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "With Next.js 16 and React 19, we're at the cutting edge of React Server Components architecture.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2026-02-15-building-this-blog",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "I've just completed building a comprehensive knowledge graph and vector database entirely on my local machine using Mistral Vibe as a coding agent.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2026-03-17-building-a-private-knowledge-graph-with-local-ai-agents",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Traditional LLMs receive the full prompt as tokens inside their transformer architecture.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2026-04-29-recursive-language-models",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "And reasoning problems are exactly what local LLMs plus a knowledge graph are good at, provided you're willing to build the plumbing yourself instead of waiting for a SaaS dashboard to grow a brain.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2026-07-09-telemetry-intelligence-engine",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The failure is not in the LLMs but in the architecture that fails to compile memory into the agent's runtime.",
+      "reinforcements": 51,
+      "concept_recurrence": 142,
+      "slug": "2026-07-14-synthesizing-memory-with-agent",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Ollama runs as a background service.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2024-10-18-building-a-full-stack-application-with-django-and-react",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "This software could index vast video databases instantaneously, potentially enabling the prosecution of all detected crimes.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2024-11-04-deep-fake",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "To interact with Instagram programmatically, you'll need to use the **Instagram Graph API**, which is part of Facebook's suite of developer tools.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2024-11-27-instagram-feed-summarizer",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "In the rapidly evolving landscape of software development, maintaining a flexible and scalable architecture is paramount.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2024-12-05-personagen",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Below is the response to **Prompt 2**, which focuses on implementing the Retrieval-Augmented Generation (RAG) pipeline in Python.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2024-12-11-next-gen-personagen",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "We can offload performance-heavy parts of our AI pipelines to Rust and call them from Python.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2025-03-11-integrating-rust-burn-framework-for-ai",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Now, let’s compile it into a Python module.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2025-03-11-integrating-rust-burn-framework-for-ai",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "Rust can handle much heavier lifting—like SIMD-optimized tensor computations, fast graph algorithms, or even custom LLM model inference.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2025-03-11-integrating-rust-burn-framework-for-ai",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    },
+    {
+      "content": "The integration of OpenAI's Agents SDK with Ollama represents not merely a technical implementation but a philosophical statement about the future of AI architectures.",
+      "reinforcements": 50,
+      "concept_recurrence": 142,
+      "slug": "2025-03-12-integrating-openai-agents-sdk-ollama",
+      "tags": [
+        "technology",
+        "architecture"
+      ],
+      "is_decision": false
+    }
+  ],
+  "timeline": [
+    {
+      "month": "2024-10",
+      "facts": 70,
+      "decisions": 24
+    },
+    {
+      "month": "2024-11",
+      "facts": 134,
+      "decisions": 38
+    },
+    {
+      "month": "2024-12",
+      "facts": 105,
+      "decisions": 29
+    },
+    {
+      "month": "2025-01",
+      "facts": 39,
+      "decisions": 12
+    },
+    {
+      "month": "2025-02",
+      "facts": 75,
+      "decisions": 5
+    },
+    {
+      "month": "2025-03",
+      "facts": 206,
+      "decisions": 74
+    },
+    {
+      "month": "2025-04",
+      "facts": 21,
+      "decisions": 5
+    },
+    {
+      "month": "2025-07",
+      "facts": 23,
+      "decisions": 7
+    },
+    {
+      "month": "2025-10",
+      "facts": 100,
+      "decisions": 55
+    },
+    {
+      "month": "2025-11",
+      "facts": 135,
+      "decisions": 47
+    },
+    {
+      "month": "2025-12",
+      "facts": 12,
+      "decisions": 4
+    },
+    {
+      "month": "2026-01",
+      "facts": 160,
+      "decisions": 34
+    },
+    {
+      "month": "2026-02",
+      "facts": 57,
+      "decisions": 3
+    },
+    {
+      "month": "2026-03",
+      "facts": 92,
+      "decisions": 36
+    },
+    {
+      "month": "2026-04",
+      "facts": 25,
+      "decisions": 2
+    },
+    {
+      "month": "2026-05",
+      "facts": 34,
+      "decisions": 1
+    },
+    {
+      "month": "2026-06",
+      "facts": 70,
+      "decisions": 23
+    },
+    {
+      "month": "2026-07",
+      "facts": 155,
+      "decisions": 37
+    }
+  ]
+}

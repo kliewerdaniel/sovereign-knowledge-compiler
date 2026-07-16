@@ -15,6 +15,18 @@ It compounds on [`knowledge-compiler-sdk`](https://github.com/kliewerdaniel/know
 compiled memory batch is persisted as an immutable, content-hashed artifact via
 the SDK's `ArtifactStore`.
 
+## Live demo
+
+**153 of my own blog posts were compiled locally (llama3.1:8b) into 1,513 facts
+and 436 decisions.** The result is a live, interactive knowledge graph:
+
+→ **[skc-demo-eta.vercel.app](https://skc-demo-eta.vercel.app/)**
+
+A 3D concept graph (tags as nodes, co-occurrence as edges, themes as colors),
+decision breakdown by theme, a timeline of the corpus, and the cross-post
+reinforcement ranking — all rendered from the artifacts the compiler produced.
+Zero cloud calls. Source for the demo app lives in [`skc-demo/`](./skc-demo).
+
 ```
 Traditional agent memory:   documents → embeddings → vector store → agent query
 This:                       raw material → compile once → static artifacts → cheap lookup
